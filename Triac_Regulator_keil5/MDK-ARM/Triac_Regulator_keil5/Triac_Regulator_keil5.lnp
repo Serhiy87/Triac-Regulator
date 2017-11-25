@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"triac_regulator_keil5\system_stm32f1xx.o"
+"triac_regulator_keil5\stm32f1xx_it.o"
+"triac_regulator_keil5\stm32f1xx_hal_msp.o"
+"triac_regulator_keil5\main.o"
+"triac_regulator_keil5\dynamicindication.o"
+"triac_regulator_keil5\stm32f1xx_hal_rcc.o"
+"triac_regulator_keil5\stm32f1xx_hal_flash.o"
+"triac_regulator_keil5\stm32f1xx_hal_dma.o"
+"triac_regulator_keil5\stm32f1xx_hal_flash_ex.o"
+"triac_regulator_keil5\stm32f1xx_hal.o"
+"triac_regulator_keil5\stm32f1xx_hal_gpio.o"
+"triac_regulator_keil5\stm32f1xx_hal_tim_ex.o"
+"triac_regulator_keil5\stm32f1xx_hal_pwr.o"
+"triac_regulator_keil5\stm32f1xx_hal_tim.o"
+"triac_regulator_keil5\stm32f1xx_hal_cortex.o"
+"triac_regulator_keil5\stm32f1xx_hal_gpio_ex.o"
+"triac_regulator_keil5\stm32f1xx_hal_rcc_ex.o"
+"triac_regulator_keil5\startup_stm32f103xb.o"
+--library_type=microlib --strict --scatter "Triac_Regulator_keil5\Triac_Regulator_keil5.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Triac_Regulator_keil5.map" -o Triac_Regulator_keil5\Triac_Regulator_keil5.axf

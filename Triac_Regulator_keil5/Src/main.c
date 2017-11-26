@@ -109,10 +109,10 @@ HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
 		ToggleLed();
 	
 		//HAL_GPIO_WritePin(CATHODE_A_GPIO,numAraay[0],GPIO_PIN_RESET);
-	/*	for(uint8_t i=0;i<10;i++){
-		setDigit(1,i);
-			HAL_Delay(1000);
-		}*/
+		for(uint16_t i=0;i<10000;i++){
+			showValue(i);
+			HAL_Delay(200);
+		}
   }
   /* USER CODE END 3 */
 

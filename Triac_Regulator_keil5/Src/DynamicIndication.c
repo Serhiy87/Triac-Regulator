@@ -35,7 +35,11 @@ void setDigit(uint8_t digit, uint8_t value){
 	HAL_GPIO_WritePin(digitsGPIO_Array[0],numAraay[value],GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(digitsGPIO_Array[0],digitsArray[digit-1],GPIO_PIN_SET);
 };
-uint16_t value = 1234;
+uint16_t value = 0;
+void showValue(uint16_t value1){
+value = value1;
+}
+
 void dynamicIndicationTickHandler(void){
 	static uint8_t state = 0;
 	static uint16_t counter=0;

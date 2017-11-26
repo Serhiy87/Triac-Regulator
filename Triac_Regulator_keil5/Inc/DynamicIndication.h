@@ -30,7 +30,7 @@
 	#define CATHODE_DP_GPIO_PIN 	GPIO_PIN_12
 	
 
-	
+	void showValue(uint16_t value1);
 	void ToggleLed(void);
 	void setDigit(uint8_t digit, uint8_t value);
 	void dynamicIndicationTickHandler(void);

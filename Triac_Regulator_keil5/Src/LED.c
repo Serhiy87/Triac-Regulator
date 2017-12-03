@@ -16,12 +16,12 @@
 		static uint8_t LED_state = 0;
 		switch(state){
 		case 0:
-			LED_timer = Timer8Alloc();
-			StartTimer8(LED_timer, 100);
+			LED_timer = Timer16Alloc();
+			StartTimer16(LED_timer, 1000);
 			state = 1;
 			break;
 		case 1:
-				if(Timer8Stopp(LED_timer)){
+				if(Timer16Stopp(LED_timer)){
 					if(LED_state==1){
 						LED_Off();
 						LED_state = 0;
@@ -30,7 +30,7 @@
 						LED_On();
 						LED_state = 1;					
 					}
-					StartTimer8(LED_timer, 100);
+					StartTimer16(LED_timer, 1000);
 				}
 			break;
 		}

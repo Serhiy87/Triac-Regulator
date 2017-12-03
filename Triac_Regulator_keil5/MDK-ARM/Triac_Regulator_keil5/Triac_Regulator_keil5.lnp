@@ -7,6 +7,8 @@
 "triac_regulator_keil5\ds18b20.o"
 "triac_regulator_keil5\time.o"
 "triac_regulator_keil5\led.o"
+"triac_regulator_keil5\pid.o"
+"triac_regulator_keil5\discretecontrol.o"
 "triac_regulator_keil5\stm32f1xx_hal_rcc.o"
 "triac_regulator_keil5\stm32f1xx_hal_flash.o"
 "triac_regulator_keil5\stm32f1xx_hal_dma.o"

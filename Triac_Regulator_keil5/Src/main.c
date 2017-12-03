@@ -43,8 +43,9 @@
 #include "time.h"
 #include "DynamicIndication.h"
 #include "LED.h"
-//#include "PID.h"
+#include "PID.h"
 #include "DS18B20.h"
+#include "DiscretControl.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -70,7 +71,8 @@ static void MX_TIM3_Init(void);
 
 /* USER CODE END 0 */
 uint8_t waitflg = 0;
-
+float temperature;
+float PID_Output;
 int main(void)
 {
 
@@ -122,9 +124,16 @@ int main(void)
 				StartTimer8(myTimer, 100);
 		}
 		DS18B20_App();
-		showValue(readTemperature());
+		temperature = readTemperature();
+		PID_Tk_RAM.Setpoint = 300;
+		PID_Tk_RAM.Actual = temperature;
+		PID(&PID_Tk_RAM, &PID_Tk_EEP);
+		PID_Output = PID_Tk_RAM.Output;
+		showValue(temperature);
+		POWER_App(PID_Output);
 		//showValue(myValue);
-		LED_App();
+		//LED_App();
+
   }
 
   /* USER CODE END 3 */

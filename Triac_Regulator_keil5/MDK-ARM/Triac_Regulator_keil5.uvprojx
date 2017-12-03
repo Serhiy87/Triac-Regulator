@@ -445,6 +445,26 @@
               <FileType>5</FileType>
               <FilePath>..\Inc\LED.h</FilePath>
             </File>
+            <File>
+              <FileName>PID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\PID.h</FilePath>
+            </File>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>DiscretControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\DiscretControl.h</FilePath>
+            </File>
+            <File>
+              <FileName>DiscreteControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\DiscreteControl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

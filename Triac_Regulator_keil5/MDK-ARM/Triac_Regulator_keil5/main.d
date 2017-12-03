@@ -28,4 +28,6 @@ triac_regulator_keil5\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_
 triac_regulator_keil5\main.o: ../Inc/time.h
 triac_regulator_keil5\main.o: ../Inc/DynamicIndication.h
 triac_regulator_keil5\main.o: ../Inc/LED.h
+triac_regulator_keil5\main.o: ../Inc/PID.h
 triac_regulator_keil5\main.o: ../Inc/DS18B20.h
+triac_regulator_keil5\main.o: ../Inc/DiscretControl.h

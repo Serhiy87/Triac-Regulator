@@ -1,6 +1,7 @@
 #ifndef PID_H
 #define PID_H
-
+#define  TD_PID_Tk 20
+#include "stm32f1xx_hal.h"
 typedef struct {
 	int16_t Setpoint;
 	int16_t Actual;
@@ -29,8 +30,8 @@ typedef struct {
 	uint16_t ScaleFactor;
 } PID_EEP;
 
-PID_RAM PID_Tk_RAM;
-PID_EEP PID_Tk_EEP = {
+static PID_RAM PID_Tk_RAM;
+static PID_EEP PID_Tk_EEP = {
 	20,		// Kp
 	240,	// Ki
 	0,		// Kd
@@ -43,4 +44,7 @@ PID_EEP PID_Tk_EEP = {
 	TD_PID_Tk,	// Timer
 	10,			// ScaleFactor
 };
+
+void PID_Init(PID_RAM* const PID_R, const PID_EEP* const PID_E);
+void PID(PID_RAM*  PID_R,  PID_EEP*  PID_E);
 #endif

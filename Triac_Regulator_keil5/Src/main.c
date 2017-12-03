@@ -40,7 +40,9 @@
 #include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+#include "time.h"
 #include "DynamicIndication.h"
+#include "LED.h"
 //#include "PID.h"
 #include "DS18B20.h"
 /* USER CODE END Includes */
@@ -104,13 +106,27 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	HAL_GPIO_WritePin(ANODE1_GPIO,ANODE1_GPIO_PIN,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(CATHODE_A_GPIO,CATHODE_A_GPIO_PIN|CATHODE_B_GPIO_PIN|CATHODE_C_GPIO_PIN|CATHODE_D_GPIO_PIN|CATHODE_E_GPIO_PIN|CATHODE_F_GPIO_PIN|CATHODE_G_GPIO_PIN|CATHODE_DP_GPIO_PIN,GPIO_PIN_SET);
-  while (1)
+	TimeInit();
+	TimersInc();
+	uint8_t myTimer=Timer8Alloc();
+	float myValue = 0;
+	StartTimer8(myTimer, 100);
+	while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+				TimersInc();
+		if(Timer8Stopp(myTimer)){
+			myValue++;
+				StartTimer8(myTimer, 100);
+		}
+		DS18B20_App();
 		showValue(readTemperature());
+		//showValue(myValue);
+		LED_App();
   }
+
   /* USER CODE END 3 */
 }
 

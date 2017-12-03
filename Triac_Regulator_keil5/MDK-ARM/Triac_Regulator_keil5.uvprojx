@@ -425,6 +425,26 @@
               <FileType>5</FileType>
               <FilePath>..\Inc\DS18B20.h</FilePath>
             </File>
+            <File>
+              <FileName>time.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\time.h</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\time.c</FilePath>
+            </File>
+            <File>
+              <FileName>LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\LED.c</FilePath>
+            </File>
+            <File>
+              <FileName>LED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\LED.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

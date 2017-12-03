@@ -26,3 +26,4 @@ triac_regulator_keil5\ds18b20.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_h
 triac_regulator_keil5\ds18b20.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 triac_regulator_keil5\ds18b20.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 triac_regulator_keil5\ds18b20.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+triac_regulator_keil5\ds18b20.o: ../Inc/time.h

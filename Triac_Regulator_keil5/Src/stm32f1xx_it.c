@@ -176,6 +176,11 @@ void SysTick_Handler(void)
 	if(!waitflg){
 	dynamicIndicationTickHandler();
 	}
+		static uint16_t counter =0;
+	if(counter == 10){
+		counter = 0;
+		SoftTimersCallback();
+	}else {counter++;};
   /* USER CODE END SysTick_IRQn 1 */
 }
 

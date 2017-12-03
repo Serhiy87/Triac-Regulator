@@ -39,21 +39,23 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 
-
 /* USER CODE BEGIN Includes */
 #include "DynamicIndication.h"
+//#include "PID.h"
+#include "DS18B20.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -62,7 +64,10 @@ static void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN 0 */
 
+
+
 /* USER CODE END 0 */
+uint8_t waitflg = 0;
 
 int main(void)
 {
@@ -89,33 +94,24 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM3_Init();
 
   /* USER CODE BEGIN 2 */
-
+	HAL_TIM_Base_Start(&htim3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	HAL_GPIO_WritePin(ANODE1_GPIO,ANODE1_GPIO_PIN,GPIO_PIN_SET);
-		HAL_GPIO_WritePin(CATHODE_A_GPIO,CATHODE_A_GPIO_PIN|CATHODE_B_GPIO_PIN|CATHODE_C_GPIO_PIN|CATHODE_D_GPIO_PIN|CATHODE_E_GPIO_PIN|CATHODE_F_GPIO_PIN|CATHODE_G_GPIO_PIN|CATHODE_DP_GPIO_PIN,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(CATHODE_A_GPIO,CATHODE_A_GPIO_PIN|CATHODE_B_GPIO_PIN|CATHODE_C_GPIO_PIN|CATHODE_D_GPIO_PIN|CATHODE_E_GPIO_PIN|CATHODE_F_GPIO_PIN|CATHODE_G_GPIO_PIN|CATHODE_DP_GPIO_PIN,GPIO_PIN_SET);
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-		//HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
-		HAL_Delay(1000);
-		ToggleLed();
-	
-		//HAL_GPIO_WritePin(CATHODE_A_GPIO,numAraay[0],GPIO_PIN_RESET);
-		for(uint16_t i=0;i<10000;i++){
-			showValue(i);
-			HAL_Delay(200);
-		}
+		showValue(readTemperature());
   }
   /* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration
@@ -163,6 +159,39 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+/* TIM3 init function */
+static void MX_TIM3_Init(void)
+{
+
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 7;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 1000;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
 /** Configure pins as 
         * Analog 
         * Input 
@@ -185,8 +214,9 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11 
-                          |GPIO_PIN_12|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5 
-                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+                          |GPIO_PIN_12|GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4 
+                          |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8 
+                          |GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -200,10 +230,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB10 PB11 PB12 PB5 
-                           PB6 PB7 PB8 PB9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_5 
-                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+  /*Configure GPIO pins : PB10 PB11 PB12 PB15 
+                           PB5 PB6 PB7 PB8 
+                           PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15 
+                          |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8 
+                          |GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

@@ -164,6 +164,7 @@ void PendSV_Handler(void)
 /**
 * @brief This function handles System tick timer.
 */
+extern uint8_t waitflg;
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
@@ -172,7 +173,9 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
+	if(!waitflg){
 	dynamicIndicationTickHandler();
+	}
   /* USER CODE END SysTick_IRQn 1 */
 }
 

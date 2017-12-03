@@ -32,8 +32,10 @@ void ToggleLed(){};
 void setDigit(uint8_t digit, uint8_t value){
 	HAL_GPIO_WritePin(CATHODE_A_GPIO,CATHODE_A_GPIO_PIN|CATHODE_B_GPIO_PIN|CATHODE_C_GPIO_PIN|CATHODE_D_GPIO_PIN|CATHODE_E_GPIO_PIN|CATHODE_F_GPIO_PIN|CATHODE_G_GPIO_PIN|CATHODE_DP_GPIO_PIN,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(CATHODE_A_GPIO,ANODE1_GPIO_PIN|ANODE2_GPIO_PIN|ANODE3_GPIO_PIN|ANODE4_GPIO_PIN,GPIO_PIN_RESET);
+	if(digit==3)HAL_GPIO_WritePin(CATHODE_A_GPIO,CATHODE_DP_GPIO_PIN,GPIO_PIN_RESET);
+	if(digit!=1){
 	HAL_GPIO_WritePin(digitsGPIO_Array[0],numAraay[value],GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(digitsGPIO_Array[0],digitsArray[digit-1],GPIO_PIN_SET);
+	HAL_GPIO_WritePin(digitsGPIO_Array[0],digitsArray[digit-1],GPIO_PIN_SET);}
 };
 uint16_t value = 0;
 void showValue(uint16_t value1){
